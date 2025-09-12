@@ -62,11 +62,38 @@
     <!-- Content wrapper -->
     <div class="flex-grow-1">
         <!-- Navbar Start -->
-        @include('layouts.peserta.navigation')
+        <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
+            <a href="{{ url('/') }}" class="navbar-brand ml-lg-3">
+            <img src="{{ asset('templatepeserta/img/logo-pemkot.png') }}" alt="Logo Pemkot" style="height: 100px;">
+            <img src="{{ asset('templatepeserta/img/river-logo.png') }}" alt="Logo Pemkot" style="height: 100px;">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto py-0">
+                    <a href="welcome-section" class="nav-item nav-link active">Home</a>
+                    <a href="#event-section" class="nav-item nav-link">Event & Lomba</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="{{ url('/login') }}" class="btn btn-primary py-2 px-4 d-none d-lg-block" style="margin-right: 10px;">Login</a>
+                <a href="{{ url('/register') }}" class="btn btn-primary py-2 px-4 d-none d-lg-block">Register</a>
+            </div>
+        </nav>
+    </div>
         <!-- Navbar End -->
 
         <!-- Header Start -->
-        @include('layouts.peserta.header')
+        <div class="jumbotron jumbotron-fluid position-relative overlay-bottom" 
+     style="margin-bottom: 90px; 
+            background: url('{{ asset('templatepeserta/img/foto-walikota.jpg') }}') center top 16% / cover no-repeat; 
+            height: 700px;">
+    <div class="container text-center my-5 py-5">
+    </div>
+</div>
+
         <!-- Header End -->
 
         <!-- event Start -->
@@ -121,7 +148,7 @@
                                  class="event-image">
                         </div>
                         <div class="card-body p-4">
-                            <h1 class="card-title mb-3">Lomba Balap Karung</h1>
+                            <h1 class="card-title mb-3">Event Pasar Wadai</h1>
                             <p><i class="fa fa-calendar"></i> 20 September 2025</p>
                             <p><i class="fa fa-map-marker-alt"></i> Lokasi: Lapangan Pemko Banjarmasin</p>
                             
@@ -139,7 +166,7 @@
                             <h5 class="mt-4">Periode Registrasi</h5>
                             <p>26 Agustus – 17 September 2025</p>
 
-                            <a href="#" class="btn btn-primary mt-3">Lihat Detail</a>
+                            <a href="/detail" class="btn btn-primary mt-3">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -167,7 +194,19 @@
     </div>
 
     <!-- Footer Start -->
-    @include('layouts.peserta.footer')
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+    <div class="container">
+        <p class="mb-2">
+            &copy; 2025 <strong>Pemkot Banjarmasin</strong>. All Rights Reserved.
+        </p>
+        <div class="d-flex justify-content-center">
+            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
     <!-- Footer End -->
 
     <!-- Back to Top -->
