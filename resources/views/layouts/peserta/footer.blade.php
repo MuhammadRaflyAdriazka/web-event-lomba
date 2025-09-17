@@ -8,7 +8,7 @@
             <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
             <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/pemko_banjarmasin?igsh=MXF6Znh6MXNtbGx1Mg==" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </footer>

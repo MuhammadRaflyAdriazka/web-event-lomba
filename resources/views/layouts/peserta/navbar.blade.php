@@ -11,8 +11,7 @@
                     <div class="navbar-nav py-0">
                         <a href="{{ route('dashboard') }}" class="nav-item nav-link active">Dashboard</a>
                         <a href="#event-section" class="nav-item nav-link">Event & Lomba</a>
-                        <a href="#" class="nav-item nav-link">Event Saya</a>
-                        <a href="#" class="nav-item nav-link">Riwayat</a>
+                        <a href="/acara" class="nav-item nav-link">Acara Saya</a>
                     </div>
                     <!-- Tidak ada tombol Login/Register -->
                 </div>

@@ -19,12 +19,16 @@ Route::get('/pendaftaran', function () {
     return view('pendaftaran');
 });
 
+Route::get('/acara', function () {
+    return view('acara');
+})->name('acara');
+
 // Dashboard Peserta (dashboard yang sudah ada)
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Routes untuk setiap role
+// Routes untuk setiap role login
 Route::get('/peserta/dashboard', [PesertaController::class, 'dashboard'])->middleware('auth');
 Route::get('/admin/dashboard', [AdminDinasController::class, 'dashboard'])->middleware('auth');
 Route::get('/panitia/dashboard', [PanitiaController::class, 'dashboard'])->middleware('auth');

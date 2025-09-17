@@ -143,7 +143,7 @@
                 <div class="col-lg-6 mb-4">
                     <div class="card shadow-lg border-0 rounded-lg overflow-hidden h-100">
                         <div class="event-image-wrapper">
-                            <img src="{{ asset('templatepeserta/img/lomba-balap-karung.jpg') }}" 
+                            <img src="{{ asset('image/pasar-wadai.jpg') }}" 
                                  alt="Event Image" 
                                  class="event-image">
                         </div>
@@ -194,19 +194,7 @@
     </div>
 
     <!-- Footer Start -->
-    <footer class="bg-dark text-white text-center py-4 mt-auto">
-    <div class="container">
-        <p class="mb-2">
-            &copy; 2025 <strong>Pemkot Banjarmasin</strong>. All Rights Reserved.
-        </p>
-        <div class="d-flex justify-content-center">
-            <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
-        </div>
-    </div>
-</footer>
+    @include('layouts.peserta.footer')
     <!-- Footer End -->
 
     <!-- Back to Top -->

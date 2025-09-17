@@ -71,35 +71,35 @@
                                     FORM PENDAFTARAN EVENT PASAR WADAI
                                 </h1>
                                 
-                                <form id="pendaftaranForm" action="#" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">NAMA LENGKAP</h5>
-                                    <input type="text" name="nama_lengkap" class="form-control" style="font-size: 14px;" placeholder="Masukkan nama lengkap Anda" required>
+                                <form id="pendaftaranForm" action="/acara-saya" method="POST" enctype="multipart/form-data">
+    @csrf
+    <!-- Form fields -->
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">NAMA LENGKAP</h5>
+    <input type="text" name="nama_lengkap" class="form-control" style="font-size: 14px;" placeholder="Masukkan nama lengkap Anda" required>
 
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">NO HP AKTIF</h5>
-                                    <input type="tel" name="no_hp" class="form-control" style="font-size: 14px;" placeholder="Contoh: 081234567890" required>
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">NO HP AKTIF</h5>
+    <input type="tel" name="no_hp" class="form-control" style="font-size: 14px;" placeholder="Contoh: 081234567890" required pattern="[0-9]+" title="Hanya boleh diisi dengan angka">
 
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">EMAIL AKTIF</h5>
-                                    <input type="email" name="email" class="form-control" style="font-size: 14px;" placeholder="contoh@email.com" required>
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">EMAIL AKTIF</h5>
+    <input type="email" name="email" class="form-control" style="font-size: 14px;" placeholder="contoh@email.com" required>
 
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">ALAMAT</h5>
-                                    <textarea name="alamat" class="form-control" rows="3" style="font-size: 14px;" placeholder="Masukkan alamat lengkap Anda" required></textarea>
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">ALAMAT</h5>
+    <textarea name="alamat" class="form-control" rows="3" style="font-size: 14px;" placeholder="Masukkan alamat lengkap Anda" required></textarea>
 
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">FOTO KTP</h5>
-                                    <input type="file" name="foto_ktp" class="form-control" style="font-size: 14px;" accept=".jpg,.jpeg,.png,.pdf" required>
-                                    <p style="font-size: 12px; color: #666; margin-top: 5px;">• Format: JPG, PNG, PDF (Max: 2MB)</p>
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">FOTO KTP</h5>
+    <input type="file" name="foto_ktp" class="form-control" style="font-size: 14px;" accept=".jpg,.jpeg,.png,.pdf" required>
+    <p style="font-size: 12px; color: #666; margin-top: 5px;">• Format: JPG, PNG, PDF (Max: 2MB)</p>
 
-                                    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">FOTO SERTIFIKAT</h5>
-                                    <input type="file" name="foto_sertifikat" class="form-control" style="font-size: 14px;" accept=".jpg,.jpeg,.png,.pdf">
-                                    <p style="font-size: 12px; color: #666; margin-top: 5px;">• Format: JPG, PNG, PDF (Max: 2MB) - Opsional</p>
+    <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">FOTO SERTIFIKAT</h5>
+    <input type="file" name="foto_sertifikat" class="form-control" style="font-size: 14px;" accept=".jpg,.jpeg,.png,.pdf">
+    <p style="font-size: 12px; color: #666; margin-top: 5px;">• Format: JPG, PNG, PDF (Max: 2MB) - Opsional</p>
 
-                                    <div class="text-center mt-4">
-                                        <button type="submit" class="btn btn-primary btn-lg">
-                                            Daftar Sekarang
-                                        </button>
-                                    </div>
-                                </form>
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+            Daftar Sekarang
+        </button>
+    </div>
+</form>
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
             }).then(() => {
                 // Reset form and redirect
                 document.getElementById('pendaftaranForm').reset();
-                window.location.href = '/dashboard';
+                window.location.href = '/acara';
             });
         });
     </script>
