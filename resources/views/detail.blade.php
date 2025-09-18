@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Detail Event - Lomba Ketangkasan BPK/PMK</title>
+    <title>Detail Event - {{ isset($event) ? $event->title : 'Event Lomba' }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Event Lomba Banjarmasin" name="keywords">
-    <meta content="Detail Event Lomba Ketangkasan BPK/PMK" name="description">
+    <meta content="Detail {{ isset($event) ? $event->title : 'Event Lomba' }}" name="description">
 
     <!-- Favicon -->
     <link href="{{ asset('templatepeserta/img/favicon.ico') }}" rel="icon">
@@ -30,6 +30,16 @@
     <!-- Content wrapper -->
     <div class="flex-grow-1">
         <!-- Hero Image Section -->
+        @if(isset($event))
+        <div class="jumbotron jumbotron-fluid position-relative" 
+             style="margin-bottom: 90px; 
+                    background: url('{{ asset('images/events/' . $event->image) }}') center center / cover no-repeat; 
+                    height: 700px;"
+             onerror="this.style.backgroundImage='url({{ asset('image/pasar-wadai.jpg') }})'">
+            <div class="container text-center my-5 py-5">
+            </div>
+        </div>
+        @else
         <div class="jumbotron jumbotron-fluid position-relative" 
              style="margin-bottom: 90px; 
                     background: url('{{ asset('image/pasar-wadai.jpg') }}') center center / cover no-repeat; 
@@ -37,6 +47,7 @@
             <div class="container text-center my-5 py-5">
             </div>
         </div>
+        @endif
 
         <!-- Button Section -->
         <div class="container-fluid" style="margin-top: -50px;">
@@ -56,44 +67,49 @@
                     <div class="col-lg-8">
                         <div class="card shadow-lg border-0 rounded-lg">
                             <div class="card-body p-5">
+                                
+                                @if(isset($event))
+                                <!-- DATA DARI DATABASE -->
                                 <h1 class="text-primary text-uppercase mb-4 text-center" style="font-size: 18px; font-weight: bold; letter-spacing: 0.5px;">
-                                    EVENT PASAR WADAI
+                                    {{ strtoupper($event->title) }}
                                 </h1>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">BIAYA PENDAFTARAN</h5>
-                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• Gratis</p>
+                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ $event->fee }}</p>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">SYARAT PENDAFTARAN</h5>
-                                <p style="font-size: 14px; color: #333;">
-                                    • Usia Minimal 17 Tahun<br>
-                                    • Mempunyai KTP
-                                </p>
+                                <div style="font-size: 14px; color: #333; white-space: pre-line;">{{ $event->requirements }}</div>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">Tanggal Pendaftaran</h5>
-                                <p style="font-size: 14px; color: #333;">25 Agustus - 15 September</p>
+                                <p style="font-size: 14px; color: #333;">{{ $event->registration_start->format('d F') }} - {{ $event->registration_end->format('d F Y') }}</p>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">Tanggal Pelaksanaan</h5>
-                                <p style="font-size: 14px; color: #333;">18 September 2025</p>
+                                <p style="font-size: 14px; color: #333;">{{ $event->event_date->format('d F Y') }}</p>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">Lokasi</h5>
-                                <p style="font-size: 14px; color: #333;">Pemerintah Kota Banjarmasin</p>
+                                <p style="font-size: 14px; color: #333;">{{ $event->location }}</p>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">Hadiah</h5>
-                                <p style="font-size: 14px; color: #333;">
-                                    • Juara 1 : Motor<br>
-                                    • Juara 2 : Sepeda Listrik<br>
-                                    • Juara 3 : Sepeda Gunung
-                                </p>
+                                <div style="font-size: 14px; color: #333; white-space: pre-line;">{{ $event->prizes }}</div>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">Tentang Acara</h5>
-                                <p style="font-size: 14px; color: #333;">
-                                    Acara ini di selenggarakan oleh dinas pariwiasata untuk memperingati hari jadi kota banjarmasin
-                                </p>
+                                <p style="font-size: 14px; color: #333;">{{ $event->about }}</p>
 
                                 <div class="text-center mt-4">
-                                    <a href="/pendaftaran" class="btn btn-primary btn-lg">Daftar Sekarang
-                                    </a>
+                                    <a href="/pendaftaran/{{ $event->id }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
                                 </div>
+                                
+                                @else
+                                <!-- Pesan jika event tidak ditemukan -->
+                                <div class="text-center">
+                                    <div class="alert alert-warning">
+                                        <h4><i class="fas fa-exclamation-triangle mr-2"></i>Event Tidak Ditemukan</h4>
+                                        <p>Event yang Anda cari tidak tersedia atau sudah tidak aktif.</p>
+                                        <a href="/" class="btn btn-primary">Kembali ke Beranda</a>
+                                    </div>
+                                </div>
+                                @endif
+                                
                             </div>
                         </div>
                     </div>

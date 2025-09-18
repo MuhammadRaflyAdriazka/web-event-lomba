@@ -59,47 +59,52 @@
                 </div>
 
                 <div class="row" id="event-container">
-                <!-- Event 1 - Kuliner -->
-                <div class="col-lg-6 mb-4 event-item">
-                    <div class="card shadow-lg border-0 rounded-lg overflow-hidden h-100 event-card">
-                        <div class="event-image-wrapper">
-                            <img src="{{ asset('templatepeserta/img/mukbang-ayam.jpg') }}" alt="Event Image" class="event-image">
+                    @if(isset($events) && $events->count() > 0)
+                        @foreach($events as $event)
+                        <div class="col-lg-6 mb-4 event-item">
+                            <div class="card shadow-lg border-0 rounded-lg overflow-hidden h-100 event-card">
+                                <div class="event-image-wrapper">
+                                    <img src="{{ asset('images/events/' . $event->image) }}" 
+                                         alt="{{ $event->title }}" 
+                                         class="event-image"
+                                         onerror="this.src='{{ asset('image/pasar-wadai.jpg') }}'">
+                                </div>
+                                <div class="card-body p-4">
+                                    <h1 class="card-title mb-3">{{ $event->title }}</h1>
+                                    <p><i class="fa fa-calendar"></i> {{ $event->event_date->format('d F Y') }}</p>
+                                    <p><i class="fa fa-map-marker-alt"></i> Lokasi: {{ $event->location }}</p>
+                                    
+                                    <h5 class="mt-4">Biaya Pendaftaran</h5>
+                                    <p><i class="fa fa-money-bill-wave"></i> {{ $event->fee }}</p>
+                                    
+                                    <h5 class="mt-4">Syarat Pendaftaran</h5>
+                                    <p>{{ Str::limit($event->requirements, 120, '...') }}</p>
+                                    
+                                    <h5 class="mt-4">Periode Registrasi</h5>
+                                    <p>{{ $event->registration_start->format('d F') }} – {{ $event->registration_end->format('d F Y') }}</p>
+                                    
+                                    <div class="mt-3">
+                                        <a href="/detail/{{ $event->id }}" class="btn btn-outline-primary">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body p-4">
-                            <h1 class="card-title mb-3">Lomba Mukbang Ayam</h1>
-                            <p><i class="fa fa-calendar"></i> 19 September 2025</p>
-                            <p><i class="fa fa-map-marker-alt"></i> Lokasi: Pemerintah Kota Banjarmasin</p>
-                            <h5 class="mt-4">Biaya Pendaftaran</h5>
-                            <p><i class="fa fa-money-bill-wave"></i> Gratis</p>
-                            <h5 class="mt-4">Syarat Pendaftaran</h5>
-                            <p>- Peserta merupakan anggota resmi BPK/PMK se-Kota Banjarmasin<br>- Membawa surat rekomendasi dari instansi<br>- Membawa peralatan pribadi sesuai ketentuan<br>- Mengisi formulir pendaftaran</p>
-                            <h5 class="mt-4">Periode Registrasi</h5>
-                            <p>25 Agustus – 15 September 2025</p>
-                            <div class="mt-3"><a href="#" class="btn btn-outline-primary">Lihat Detail</a></div>
+                        @endforeach
+                    @else
+                    <!-- Jika belum ada event dari database -->
+                    <div class="col-12">
+                        <div class="text-center">
+                            <div class="card shadow-lg border-0 rounded-lg">
+                                <div class="card-body p-5">
+                                    <i class="fas fa-calendar-times fa-5x text-muted mb-4"></i>
+                                    <h3 class="text-muted">Belum Ada Event Tersedia</h3>
+                                    <p class="text-muted">Event dan lomba akan segera hadir. Pantau terus halaman ini untuk update terbaru!</p>
+                                    <a href="/" class="btn btn-primary mt-3">Kembali ke Beranda</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Event 2 - Kesenian & Budaya -->
-                <div class="col-lg-6 mb-4 event-item">
-                    <div class="card shadow-lg border-0 rounded-lg overflow-hidden h-100 event-card">
-                        <div class="event-image-wrapper">
-                            <img src="{{ asset('image/pasar-wadai.jpg') }}" alt="Event Image" class="event-image">
-                        </div>
-                        <div class="card-body p-4">
-                            <h1 class="card-title mb-3">Event Pasar Wadai</h1>
-                            <p><i class="fa fa-calendar"></i> 20 September 2025</p>
-                            <p><i class="fa fa-map-marker-alt"></i> Lokasi: Lapangan Pemko Banjarmasin</p>
-                            <h5 class="mt-4">Biaya Pendaftaran</h5>
-                            <p><i class="fa fa-money-bill-wave"></i> Gratis</p>
-                            <h5 class="mt-4">Syarat Pendaftaran</h5>
-                            <p>- Peserta minimal usia 10 tahun<br>- Membawa KTP/Kartu Pelajar<br>- Menggunakan karung sesuai ukuran panitia<br>- Mengisi formulir pendaftaran</p>
-                            <h5 class="mt-4">Periode Registrasi</h5>
-                            <p>26 Agustus – 17 September 2025</p>
-                            <div class="mt-3"><a href="/detail" class="btn btn-outline-primary">Lihat Detail</a></div>
-                        </div>
-                    </div>
-                </div>
+                    @endif
                 </div>
             </div>
         </div>
