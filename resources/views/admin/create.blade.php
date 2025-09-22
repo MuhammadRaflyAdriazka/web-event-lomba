@@ -228,7 +228,7 @@
                                             @error('prizes')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
-                                        </div>
+                                        </div>.
 
                                         <!-- TENTANG ACARA -->
                                         <div class="form-group">

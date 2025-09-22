@@ -35,7 +35,7 @@
              style="margin-bottom: 90px; 
                     background: url('{{ asset('images/events/' . $event->image) }}') center center / cover no-repeat; 
                     height: 700px;"
-             onerror="this.style.backgroundImage='url({{ asset('image/pasar-wadai.jpg') }})'">
+             onerror="this.style.backgroundImage='url({{ asset('templatepeserta/img/eror.jpeg') }})'">
             <div class="container text-center my-5 py-5">
             </div>
         </div>

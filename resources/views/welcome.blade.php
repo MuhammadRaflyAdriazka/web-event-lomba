@@ -117,7 +117,7 @@
                                 <img src="{{ asset('images/events/' . $event->image) }}" 
                                      alt="{{ $event->title }}" 
                                      class="event-image"
-                                     onerror="this.src='{{ asset('templatepeserta/img/mukbang-ayam.jpg') }}'">
+                                     onerror="this.src='{{ asset('templatepeserta/img/eror.jpeg') }}'">
                             </div>
                             <div class="card-body p-4">
                                 <h1 class="card-title mb-3">{{ $event->title }}</h1>
