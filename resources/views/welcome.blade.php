@@ -106,6 +106,12 @@
 
         <div id="event-section" class="container-fluid py-5">   
             <div class="container py-5">
+                <!-- Section Title -->
+                <div class="text-center mb-5">
+                    <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Event & Lomba Tersedia</h5>
+                    <h1>Daftar Event & Lomba</h1>
+                </div>
+
                 <!-- Filter Section -->
                 <div class="row mb-4">
                     <div class="col-12">
