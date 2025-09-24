@@ -73,6 +73,19 @@
                                 <h1 class="text-primary text-uppercase mb-4 text-center" style="font-size: 18px; font-weight: bold; letter-spacing: 0.5px;">
                                     {{ strtoupper($event->title) }}
                                 </h1>
+
+                                <!-- Field baru yang ditambahkan -->
+                                <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">JENIS ACARA</h5>
+                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ $event->category }}</p>
+
+                                <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">KATEGORI</h5>
+                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ $event->event_category }}</p>
+
+                                <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">SISTEM PENDAFTARAN</h5>
+                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ $event->registration_system }}</p>
+
+                                <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">KUOTA PESERTA</h5>
+                                <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ number_format($event->quota) }} Orang</p>
                                 
                                 <h5 class="mt-4 text-uppercase" style="color: #333; font-size: 14px; font-weight: bold;">BIAYA PENDAFTARAN</h5>
                                 <p style="font-size: 14px; color: #333; padding-left: 15px;">• {{ $event->fee }}</p>

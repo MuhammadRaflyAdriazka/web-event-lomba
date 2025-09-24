@@ -15,6 +15,11 @@ class Event extends Model
         'event_date',
         'location',
         'fee',
+        // Field baru yang ditambahkan
+        'category',
+        'registration_system',
+        'quota',
+        'event_category',
         'requirements',
         'registration_start',
         'registration_end',
@@ -50,5 +55,21 @@ class Event extends Model
         $now = Carbon::now()->format('Y-m-d');
         return $now >= $this->registration_start->format('Y-m-d') && 
                $now <= $this->registration_end->format('Y-m-d');
+    }
+
+    // Baru: Method untuk mendapatkan badge kategori
+    public function getCategoryBadgeAttribute()
+    {
+        return $this->category === 'Event' 
+            ? '<span class="badge badge-primary">Event</span>' 
+            : '<span class="badge badge-success">Lomba</span>';
+    }
+
+    // Baru: Method untuk mendapatkan sistem pendaftaran
+    public function getRegistrationSystemBadgeAttribute()
+    {
+        return $this->registration_system === 'Seleksi' 
+            ? '<span class="badge badge-warning">Seleksi</span>' 
+            : '<span class="badge badge-info">Tanpa Seleksi</span>';
     }
 }
