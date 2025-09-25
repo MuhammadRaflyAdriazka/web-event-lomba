@@ -42,7 +42,7 @@
 
                     <!-- Dashboard Title in Topbar -->
                     <div class="d-flex align-items-center">
-                        <h1 class="h4 mb-0 text-gray-800 mr-4">Dashboard Admin</h1>
+                        <h1 class="h4 mb-0 text-gray-800 mr-4">Kelola Event</h1>
                     </div>
 
                     <!-- Topbar Navbar -->
@@ -56,46 +56,30 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Main Content Area -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Selamat Datang di Sistem Event Lomba</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>Ini adalah dashboard utama untuk mengelola event dan kompetisi lomba.</p>
-                                    <p>Gunakan sidebar untuk navigasi ke berbagai bagian sistem.</p>
-                                    <div class="row mt-4">
-                                        <div class="col-md-4">
-                                            <div class="card bg-primary text-white">
-                                                <div class="card-body">
-                                                    <h5><i class="fas fa-calendar-alt"></i> Total Event</h5>
-                                                    <h2>12</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card bg-success text-white">
-                                                <div class="card-body">
-                                                    <h5><i class="fas fa-users"></i> Peserta Aktif</h5>
-                                                    <h2>245</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="card bg-info text-white">
-                                                <div class="card-body">
-                                                    <h5><i class="fas fa-trophy"></i> Event Selesai</h5>
-                                                    <h2>8</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Kelola Event dan Lomba</h1>
+
+                    <!-- Card for Buat Event Baru -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Buat Event / Lomba Baru</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Untuk membuat event atau lomba baru, klik tombol di bawah ini:</p>
+                            <a href="{{ route('admin.create') }}" class="btn btn-primary">Buat</a>
                         </div>
                     </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Lihat Event / Lomba yang Sudah Dibuat</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Untuk melihat event atau lomba yang sudah dibuat, klik tombol di bawah ini:</p>
+                            <a href="{{ route('admin.create') }}" class="btn btn-primary">Lihat</a>
+                        </div>
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -145,13 +129,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('templateadmin/js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('templateadmin/vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('templateadmin/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('templateadmin/js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
 

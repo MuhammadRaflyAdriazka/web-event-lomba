@@ -21,6 +21,13 @@ class AdminDinasController extends Controller
         return view('admin.create');
     }
 
+    // Halaman Kelola Event
+    public function index()
+    {
+    $events = Event::latest()->get(); // Ambil semua event dari database
+    return view('admin.kelola', compact('events')); // Return ke view kelola.blade.php
+   }
+
     // Simpan Event Baru
     public function store(Request $request)
     {

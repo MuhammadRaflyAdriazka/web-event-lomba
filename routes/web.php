@@ -70,6 +70,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminDinasController::class, 'dashboard'])->name('dashboard');
     
     // Kelola Event
+    Route::get('/kelola', [AdminDinasController::class, 'index'])->name('kelola');
     Route::get('/create', [AdminDinasController::class, 'create'])->name('create');
     Route::post('/store', [AdminDinasController::class, 'store'])->name('store');
     Route::delete('/event/{id}', [AdminDinasController::class, 'destroy'])->name('event.destroy');

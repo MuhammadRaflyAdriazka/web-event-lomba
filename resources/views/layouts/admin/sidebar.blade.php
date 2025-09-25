@@ -31,7 +31,7 @@
 
     <!-- Nav Item - Kelola Event (Langsung ke Create) -->
     <li class="nav-item">
-        <a class="nav-link" href="/admin/create">
+        <a class="nav-link" href="/admin/kelola">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Kelola Event</span>
         </a>
