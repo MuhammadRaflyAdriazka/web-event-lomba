@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $events = Event::where('status', 'active')
                    ->latest()
-                   ->take(6) // Ambil 6 event terbaru
                    ->get();
     return view('welcome', compact('events'));
 })->name('welcome');
