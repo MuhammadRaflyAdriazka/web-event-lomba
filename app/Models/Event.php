@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+// TAMBAHKAN INI untuk mengenali model EventFormField
+use App\Models\EventFormField;
+
 class Event extends Model
 {
     use HasFactory;
@@ -15,7 +18,6 @@ class Event extends Model
         'event_date',
         'location',
         'fee',
-        // Field baru yang ditambahkan
         'category',
         'registration_system',
         'quota',
@@ -35,13 +37,13 @@ class Event extends Model
         'registration_end' => 'date',
     ];
 
-    // Format tanggal Indonesia
+    // ... (method-method yang sudah ada sebelumnya tetap sama)
+
     public function getFormattedEventDateAttribute()
     {
         return $this->event_date->format('d F Y');
     }
 
-    // Format periode registrasi
     public function getRegistrationPeriodAttribute()
     {
         $start = $this->registration_start->format('d F');
@@ -49,7 +51,6 @@ class Event extends Model
         return $start . ' – ' . $end;
     }
 
-    // Cek apakah registrasi masih buka
     public function getIsRegistrationOpenAttribute()
     {
         $now = Carbon::now()->format('Y-m-d');
@@ -57,7 +58,6 @@ class Event extends Model
                $now <= $this->registration_end->format('Y-m-d');
     }
 
-    // Baru: Method untuk mendapatkan badge kategori
     public function getCategoryBadgeAttribute()
     {
         return $this->category === 'Event' 
@@ -65,11 +65,25 @@ class Event extends Model
             : '<span class="badge badge-success">Lomba</span>';
     }
 
-    // Baru: Method untuk mendapatkan sistem pendaftaran
     public function getRegistrationSystemBadgeAttribute()
     {
         return $this->registration_system === 'Seleksi' 
             ? '<span class="badge badge-warning">Seleksi</span>' 
             : '<span class="badge badge-info">Tanpa Seleksi</span>';
+    }
+
+    // ==================================================================
+    // METHOD BARU UNTUK RELASI ONE-TO-MANY KE FORM FIELDS
+    // ==================================================================
+    
+    /**
+     * Mendefinisikan bahwa satu Event memiliki banyak EventFormField.
+     */
+    public function formFields()
+    {
+        // Relasi 'hasMany' berarti "memiliki banyak".
+        // Kita juga langsung mengurutkannya berdasarkan 'field_order'
+        // agar form pendaftaran tampil sesuai urutan yang dibuat admin.
+        return $this->hasMany(EventFormField::class)->orderBy('field_order', 'asc');
     }
 }
