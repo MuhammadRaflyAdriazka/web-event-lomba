@@ -9,16 +9,11 @@
     <meta content="Pendaftaran Event Lomba" name="description">
 
     <link href="{{ asset('templatepeserta/img/favicon.ico') }}" rel="icon">
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <link href="{{ asset('templatepeserta/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-
     <link href="{{ asset('templatepeserta/css/style.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
@@ -77,13 +72,20 @@
                                         </h5>
 
                                         @if(in_array($field->field_type, ['text', 'email', 'number', 'tel', 'date']))
-                                            <input type="{{ $field->field_type }}" 
+                                            <input type="{{ $field->field_name === 'no_hp' ? 'tel' : $field->field_type }}" 
                                                    name="{{ $field->field_name }}" 
                                                    class="form-control" 
                                                    style="font-size: 14px;" 
                                                    placeholder="{{ $field->placeholder }}" 
                                                    {{ $field->is_required ? 'required' : '' }}
-                                                   value="{{ old($field->field_name) }}">
+                                                   value="{{ old($field->field_name) }}"
+                                                   
+                                                   @if($field->field_name === 'no_hp' || $field->field_type === 'number')
+                                                       pattern="[0-9]*"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                       title="Hanya boleh diisi dengan angka."
+                                                   @endif
+                                                   >
 
                                         @elseif($field->field_type == 'textarea')
                                             <textarea name="{{ $field->field_name }}" 
@@ -129,14 +131,11 @@
     <script src="{{ asset('templatepeserta/lib/waypoints/waypoints.min.js')}}"></script>
     <script src="{{ asset('templatepeserta/lib/counterup/counterup.min.js')}}"></script>
     <script src="{{ asset('templatepeserta/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-
     <script src="{{ asset('templatepeserta/js/main.js')}}"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         document.getElementById('pendaftaranForm').addEventListener('submit', function(e) {
-            // Tampilkan loading saat form disubmit, tapi JANGAN hentikan submit-nya
             Swal.fire({
                 title: 'Memproses Pendaftaran...',
                 html: 'Mohon tunggu sebentar.',
@@ -147,21 +146,17 @@
             });
         });
 
-        // Tampilkan notifikasi SUKSES dari session yang dikirim controller
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Pendaftaran Berhasil!',
-                text: '{{ session('success') }}',
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect ke halaman acara setelah user klik OK
                     window.location.href = "{{ route('acara') }}";
                 }
             });
         @endif
     </script>
 </body>
-
 </html>
