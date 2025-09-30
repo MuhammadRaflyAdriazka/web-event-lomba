@@ -18,8 +18,6 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    @include('layouts.peserta.topbar')
-    @include('layouts.peserta.navbar')
     <div class="flex-grow-1">
         <div class="jumbotron jumbotron-fluid position-relative" 
              style="margin-bottom: 90px; 
