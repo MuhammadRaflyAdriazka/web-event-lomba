@@ -813,11 +813,8 @@
             Swal.fire({
                 title: 'Konfirmasi Buat Event',
                 html: `
-                    <div class="text-left">
-                        <p>Apakah Anda yakin ingin membuat event:</p>
-                        <p><strong>"${eventTitle}"</strong></p>
-                        <p>dengan <strong>${fieldCount} field</strong> pada form pendaftaran?</p>
-                        <small class="text-muted">Termasuk 4 field wajib: Nama, No HP, Email, Alamat</small>
+                    <div class="text-center">
+                        <p>Apakah anda yakin ingin membuat event?</p>
                     </div>
                 `,
                 icon: 'question',
@@ -834,7 +831,7 @@
                     // Tampilkan loading alert
                     Swal.fire({
                         title: 'Sedang Membuat Event...',
-                        html: 'Mohon tunggu sebentar <i class="fas fa-heart text-danger"></i>',
+                        html: 'Mohon tunggu sebentar',
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         showConfirmButton: false,
