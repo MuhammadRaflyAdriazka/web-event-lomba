@@ -68,6 +68,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/event/{id}', [AdminDinasController::class, 'destroy'])->name('event.destroy');
     Route::get('/panitia', function () { return view('admin.panitia'); })->name('panitia');
     Route::get('/laporan', function () { return view('admin.laporan'); })->name('laporan');
+    Route::get('/event', function () { return view('admin.event'); })->name('event');
 });
 
 Route::prefix('panitia')->name('panitia.')->middleware('auth')->group(function () {

@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 
 {{-- Mengatur judul halaman yang akan tampil di top bar --}}
-@section('title', 'Buat Event Baru')
+@section('title', 'Kelola Event & Lomba')
 
 {{-- Menyisipkan CSS khusus untuk halaman ini ke dalam <head> --}}
 @push('styles')

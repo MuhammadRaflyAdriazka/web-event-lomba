@@ -25,7 +25,7 @@
         @include('layouts.admin.sidebar')
         <div id="content-wrapper" class="d-flex flex-column">
 
-            <div id="content">
+            <d id="content">
 
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -44,14 +44,6 @@
                 <div class="container-fluid">
                     @yield('content')
                 </div>
-                </div>
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2025</span>
-                    </div>
-                </div>
-            </footer>
             </div>
         </div>
     <a class="scroll-to-top rounded" href="#page-top">

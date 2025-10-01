@@ -25,7 +25,7 @@
     <div class="card-body">
         <p>Untuk melihat event atau lomba yang sudah dibuat, klik tombol di bawah ini:</p>
         {{-- Anda mungkin perlu mengubah route ini ke halaman daftar event, misalnya 'admin.event.list' --}}
-        <a href="{{ route('admin.create') }}" class="btn btn-primary">Lihat</a>
+        <a href="{{ route('admin.event') }}" class="btn btn-primary">Lihat</a>
     </div>
 </div>
 
