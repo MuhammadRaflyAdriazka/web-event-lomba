@@ -16,6 +16,24 @@ class RegistrationController extends Controller
     public function show($id)
     {
         $event = Event::with('formFields')->findOrFail($id);
+        
+        // Cek apakah periode registrasi masih aktif
+        $now = now()->toDateString();
+        $registrationOpen = ($now >= $event->registration_start && $now <= $event->registration_end);
+        
+        if(!$registrationOpen) {
+            return redirect()->route('detail', $id)->with('error', 'Periode pendaftaran sudah berakhir pada ' . \Carbon\Carbon::parse($event->registration_end)->format('d F Y'));
+        }
+        
+        // Cek apakah user sudah pernah daftar di event ini
+        $hasRegistered = Registration::where('event_id', $event->id)
+                                   ->where('user_id', auth()->id())
+                                   ->exists();
+                                   
+        if($hasRegistered) {
+            return redirect()->route('detail', $id)->with('warning', 'Anda sudah terdaftar pada event ini!');
+        }
+        
         return view('pendaftaran', compact('event'));
     }
 
@@ -25,6 +43,23 @@ class RegistrationController extends Controller
     public function store(Request $request, $id)
     {
         $event = Event::with('formFields')->findOrFail($id);
+        
+        // Cek apakah periode registrasi masih aktif (double protection)
+        $now = now()->toDateString();
+        $registrationOpen = ($now >= $event->registration_start && $now <= $event->registration_end);
+        
+        if(!$registrationOpen) {
+            return redirect()->route('detail', $id)->with('error', 'Periode pendaftaran sudah berakhir pada ' . \Carbon\Carbon::parse($event->registration_end)->format('d F Y'));
+        }
+        
+        // Cek lagi apakah user sudah pernah daftar (double protection)
+        $hasRegistered = Registration::where('event_id', $event->id)
+                                   ->where('user_id', auth()->id())
+                                   ->exists();
+                                   
+        if($hasRegistered) {
+            return redirect()->route('detail', $id)->with('warning', 'Anda sudah terdaftar pada event ini!');
+        }
         
         // ... (Logika validasi dinamis tetap sama)
         $validationRules = [];
@@ -57,6 +92,7 @@ class RegistrationController extends Controller
             // 1. Buat record utama di tabel 'registrations'
             $registration = Registration::create([
                 'event_id' => $event->id,
+                'user_id' => auth()->id(),
                 'status' => 'pending', // Status awal
             ]);
 
@@ -90,7 +126,7 @@ class RegistrationController extends Controller
             return back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat pendaftaran. Silakan coba lagi.']);
         }
 
-        return redirect()->route('pendaftaran', $event->id)
+        return redirect()->route('acara')
                          ->with('success', 'Anda berhasil mendaftar di event "' . $event->title . '"! Informasi selanjutnya akan dikabarkan oleh panitia.');
     }
 }

@@ -258,7 +258,27 @@
                         <label class="font-weight-bold text-primary">Gambar Event</label>
                         <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror" accept=".jpg,.jpeg,.png" required>
                         @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        <small class="form-text text-muted">Format: JPG, JPEG, PNG. Maksimal 2MB</small>
+                        <small class="form-text text-muted">
+                            <strong>Panduan Upload Gambar:</strong><br>
+                            • <strong>Format:</strong> JPG, JPEG, PNG<br>
+                            • <strong>Ukuran File:</strong> Maksimal 2MB<br>
+                            • <strong>Dimensi Direkomendasikan:</strong> 800x600 px atau rasio 4:3<br>
+                            • <strong>Orientasi:</strong> Landscape (horizontal) untuk tampilan terbaik<br>
+                            • <em>Gambar akan otomatis disesuaikan ukurannya di halaman peserta</em>
+                        </small>
+                        
+                        <!-- Preview Area -->
+                        <div id="imagePreview" class="mt-3" style="display: none;">
+                            <div class="alert alert-info">
+                                <strong>Preview tampilan di halaman peserta:</strong>
+                                <div class="mt-2" style="max-width: 300px;">
+                                    <div style="width: 100%; height: 200px; border: 2px dashed #dee2e6; border-radius: 5px; overflow: hidden; background: #f8f9fa;">
+                                        <img id="previewImg" style="width: 100%; height: 100%; object-fit: cover;" alt="Preview">
+                                    </div>
+                                    <small class="text-muted">Ukuran di card: 250px tinggi, lebar menyesuaikan</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -561,6 +581,38 @@
         });
 
         showStep(1);
+    });
+
+    // Image Preview Functionality
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const previewDiv = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        
+        if (file) {
+            // Check file size (2MB = 2048KB)
+            if (file.size > 2048 * 1024) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'File Terlalu Besar',
+                    text: 'Ukuran file maksimal 2MB. Silakan pilih file yang lebih kecil.',
+                    confirmButtonText: 'OK'
+                });
+                e.target.value = '';
+                previewDiv.style.display = 'none';
+                return;
+            }
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewDiv.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewDiv.style.display = 'none';
+        }
     });
 
     // Auto hide standard alerts

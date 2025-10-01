@@ -7,6 +7,7 @@ use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\KepalaDinasController;
 use App\Http\Controllers\RegistrationController; // <-- TAMBAHKAN INI
 use App\Models\Event;
+use App\Models\Registration;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,24 +25,49 @@ Route::get('/', function () {
 // Halaman Detail Event
 Route::get('/detail/{id}', function ($id) {
     $event = Event::findOrFail($id);
-    return view('detail', compact('event'));
+    
+    // Cek status pendaftaran user (jika sudah login)
+    $hasRegistered = false;
+    if (auth()->check()) {
+        $hasRegistered = Registration::where('event_id', $event->id)
+                                   ->where('user_id', auth()->id())
+                                   ->exists();
+    }
+    
+    // Cek status periode registrasi
+    $now = now()->toDateString();
+    $registrationNotStarted = $now < $event->registration_start;
+    $registrationClosed = $now > $event->registration_end;
+    $registrationOpen = ($now >= $event->registration_start && $now <= $event->registration_end);
+    
+    return view('detail', compact('event', 'hasRegistered', 'registrationOpen', 'registrationNotStarted', 'registrationClosed'));
 })->name('detail');
 
 
 // =========================================================================
 //  ROUTE PENDAFTARAN LAMA SUDAH DIGANTI DENGAN BLOK DI BAWAH INI
 // =========================================================================
-// Route untuk MENAMPILKAN form pendaftaran (method GET)
-Route::get('/pendaftaran/{id}', [RegistrationController::class, 'show'])->name('pendaftaran');
-// Route untuk MEMPROSES data pendaftaran (method POST)
-Route::post('/pendaftaran/{id}', [RegistrationController::class, 'store'])->name('pendaftaran.store');
+// Route untuk MENAMPILKAN form pendaftaran (method GET) - HARUS LOGIN
+Route::get('/pendaftaran/{id}', [RegistrationController::class, 'show'])->middleware('auth')->name('pendaftaran');
+// Route untuk MEMPROSES data pendaftaran (method POST) - HARUS LOGIN
+Route::post('/pendaftaran/{id}', [RegistrationController::class, 'store'])->middleware('auth')->name('pendaftaran.store');
 // =========================================================================
 
 
 // Halaman Semua Acara
 Route::get('/acara', function () {
-    $events = Event::where('status', 'active')->latest()->get();
-    return view('acara', compact('events'));
+    // Jika user login, tampilkan riwayat pendaftaran
+    if (auth()->check()) {
+        $userRegistrations = Registration::with('event')
+                                       ->where('user_id', auth()->id())
+                                       ->latest()
+                                       ->get();
+        return view('acara', compact('userRegistrations'));
+    } else {
+        // Jika belum login, tampilkan semua event
+        $events = Event::where('status', 'active')->latest()->get();
+        return view('acara', compact('events'));
+    }
 })->name('acara');
 
 /*

@@ -24,6 +24,22 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('templatepeserta/css/style.css') }}" rel="stylesheet">
+    
+    <!-- Custom CSS untuk Event Images -->
+    <style>
+        .event-image-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        .event-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -44,74 +60,58 @@
                 </div>
 
                 <div class="row">
-                    <!-- Event 1 -->
-                    <div class="col-lg-12 mb-4">
-                        <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('image/pasar-wadai.jpg') }}" alt="Event Image" class="event-image" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Event Pasar Wadai</h5>
-                                        <p><i class="fa fa-calendar"></i> Tanggal Pelaksanaan: 20 September 2025</p>
-                                        <p><i class="fa fa-map-marker-alt"></i> Lokasi: Lapangan Pemko Banjarmasin</p>
-                                        <p><i class="fa fa-money-bill-wave"></i> Biaya: Gratis</p>
-                                        <p><i class="fa fa-clock"></i> Status Pendaftaran: <span class="badge bg-primary text-white">Pending</span></p>
-                                        <div class="mt-3">
-                                            <a href="#" class="btn btn-outline-primary">Lihat Detail</a>
+                    @if(isset($userRegistrations) && $userRegistrations->count() > 0)
+                        @foreach($userRegistrations as $registration)
+                        <!-- Event {{ $loop->iteration }} -->
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <div class="event-image-wrapper">
+                                            <img src="{{ asset('images/events/' . $registration->event->image) }}" 
+                                                 alt="{{ $registration->event->title }}" 
+                                                 class="event-image"
+                                                 onerror="this.src='{{ asset('image/pasar-wadai.jpg') }}'">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">{{ $registration->event->title }}</h5>
+                                            <p><i class="fa fa-calendar"></i> Tanggal Pelaksanaan: {{ \Carbon\Carbon::parse($registration->event->event_date)->format('d F Y') }}</p>
+                                            <p><i class="fa fa-map-marker-alt"></i> Lokasi: {{ $registration->event->location }}</p>
+                                            <p><i class="fa fa-money-bill-wave"></i> Biaya: {{ $registration->event->registration_fee == 0 ? 'Gratis' : 'Rp ' . number_format($registration->event->registration_fee, 0, ',', '.') }}</p>
+                                            <p><i class="fa fa-clock"></i> Status Pendaftaran: 
+                                                @if($registration->status == 'pending')
+                                                    <span class="badge bg-warning text-dark">Pending</span>
+                                                @elseif($registration->status == 'approved')
+                                                    <span class="badge bg-success text-white">Diterima</span>
+                                                @elseif($registration->status == 'rejected')
+                                                    <span class="badge bg-danger text-white">Ditolak</span>
+                                                @endif
+                                            </p>
+                                            <p><i class="fa fa-calendar-plus"></i> Tanggal Daftar: {{ $registration->created_at->format('d F Y, H:i') }}</p>
+                                            <div class="mt-3">
+                                                <a href="{{ route('detail', $registration->event->id) }}" class="btn btn-outline-primary">Lihat Detail</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Event 2 -->
-                    <div class="col-lg-12 mb-4">
-                        <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('image/pasar-wadai.jpg') }}" alt="Event Image" class="event-image" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Event Pasar Wadai</h5>
-                                        <p><i class="fa fa-calendar"></i> Tanggal Pelaksanaan: 20 September 2025</p>
-                                        <p><i class="fa fa-map-marker-alt"></i> Lokasi: Lapangan Pemko Banjarmasin</p>
-                                        <p><i class="fa fa-money-bill-wave"></i> Biaya: Gratis</p>
-                                        <p><i class="fa fa-clock"></i> Status Pendaftaran: <span class="badge bg-success text-white">Diterima</span></p>
-                                        <div class="mt-3">
-                                            <a href="#" class="btn btn-outline-primary">Lihat Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
+                        @endforeach
+                    @else
+                        <!-- Jika belum ada pendaftaran -->
+                        <div class="col-12">
+                            <div class="text-center py-5">
+                                <i class="fas fa-calendar-times fa-5x text-muted mb-4"></i>
+                                <h3 class="text-muted">Belum Ada Acara yang Diikuti</h3>
+                                <p class="text-muted mb-4">Anda belum mendaftar pada acara apapun. Mulai jelajahi dan daftar pada acara yang menarik!</p>
+                                <a href="{{ route('welcome') }}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-search mr-2"></i>Jelajahi Acara
+                                </a>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Event 3 -->
-                    <div class="col-lg-12 mb-4">
-                        <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
-                            <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('image/pasar-wadai.jpg') }}" alt="Event Image" class="event-image" style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Event Pasar Wadai</h5>
-                                        <p><i class="fa fa-calendar"></i> Tanggal Pelaksanaan: 20 September 2025</p>
-                                        <p><i class="fa fa-map-marker-alt"></i> Lokasi: Lapangan Pemko Banjarmasin</p>
-                                        <p><i class="fa fa-money-bill-wave"></i> Biaya: Gratis</p>
-                                        <p><i class="fa fa-clock"></i> Status Pendaftaran: <span class="badge bg-danger text-white">Ditolak</span></p>
-                                        <div class="mt-3">
-                                            <a href="#" class="btn btn-outline-primary">Lihat Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

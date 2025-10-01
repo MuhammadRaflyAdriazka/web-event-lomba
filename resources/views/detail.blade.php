@@ -109,7 +109,49 @@
                                 <p style="font-size: 14px; color: #333;">{{ $event->about }}</p>
 
                                 <div class="text-center mt-4">
-                                    <a href="/pendaftaran/{{ $event->id }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
+                                    @if(!$registrationOpen)
+                                        <!-- Periode registrasi sudah tutup -->
+                                        <div class="alert alert-danger mb-4">
+                                            <h5><i class="fas fa-times-circle mr-2"></i>Pendaftaran Ditutup!</h5>
+                                            <p class="mb-0">
+                                                Periode pendaftaran sudah berakhir pada {{ \Carbon\Carbon::parse($event->registration_end)->format('d F Y') }}
+                                            </p>
+                                        </div>
+                                        <button class="btn btn-secondary btn-lg" disabled>
+                                            <i class="fas fa-lock mr-2"></i>Pendaftaran Ditutup
+                                        </button>
+                                    @else
+                                        @auth
+                                            <!-- User sudah login -->
+                                            @if($hasRegistered)
+                                                <!-- User sudah terdaftar -->
+                                                <div class="alert alert-success mb-4">
+                                                    <h5><i class="fas fa-check-circle mr-2"></i>Anda Sudah Terdaftar!</h5>
+                                                    <p class="mb-0">Anda sudah terdaftar pada event ini. Terima kasih atas partisipasinya!</p>
+                                                </div>
+                                                <button class="btn btn-success btn-lg" disabled>
+                                                    <i class="fas fa-check mr-2"></i>Sudah Terdaftar
+                                                </button>
+                                            @else
+                                                <!-- User belum terdaftar -->
+                                                <a href="/pendaftaran/{{ $event->id }}" class="btn btn-primary btn-lg">
+                                                    <i class="fas fa-user-plus mr-2"></i>Daftar Sekarang
+                                                </a>
+                                            @endif
+                                        @else
+                                            <!-- User belum punya akun -->
+                                            <div class="alert alert-info mb-4">
+                                                <h5><i class="fas fa-info-circle mr-2"></i>Ingin Ikut Event Ini?</h5>
+                                                <p class="mb-0">Buat akun terlebih dahulu untuk bisa mendaftar pada event ini</p>
+                                            </div>
+                                            <a href="{{ route('register') }}" class="btn btn-success btn-lg mr-3">
+                                                <i class="fas fa-user-plus mr-2"></i>Buat Akun Sekarang
+                                            </a>
+                                            <a href="{{ route('login') }}" class="btn btn-outline-primary btn-lg">
+                                                <i class="fas fa-sign-in-alt mr-2"></i>Sudah Punya Akun? Masuk
+                                            </a>
+                                        @endauth
+                                    @endif
                                 </div>
                                 
                                 @else

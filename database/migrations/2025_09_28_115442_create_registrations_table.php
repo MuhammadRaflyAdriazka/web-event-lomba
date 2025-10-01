@@ -11,8 +11,7 @@ return new class extends Migration
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            // Nanti bisa dihubungkan ke user_id jika peserta wajib login
-            // $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('status')->default('pending'); // Status: pending, approved, rejected
             $table->timestamps();
         });

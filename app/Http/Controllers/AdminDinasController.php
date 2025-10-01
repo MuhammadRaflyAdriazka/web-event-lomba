@@ -48,7 +48,7 @@ class AdminDinasController extends Controller
             'registration_end' => 'required|date|after_or_equal:registration_start',
             'prizes' => 'required|string',
             'about' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048|dimensions:min_width=400,min_height=250,max_width=1920,max_height=1080',
             // Validasi untuk form fields dari Step 2
             'form_fields' => 'required|array|min:4', // Minimal ada 4 field default
             'form_fields.*.field_name' => 'required|string',
@@ -78,6 +78,7 @@ class AdminDinasController extends Controller
             'image.image' => 'File harus berupa gambar',
             'image.mimes' => 'Format gambar harus jpeg, png, atau jpg',
             'image.max' => 'Ukuran gambar maksimal 2MB',
+            'image.dimensions' => 'Ukuran gambar minimal 400x250 pixel dan maksimal 1920x1080 pixel untuk tampilan yang optimal',
              // Pesan validasi baru
             'form_fields.required' => 'Terjadi kesalahan, form pendaftaran tidak boleh kosong.',
             'form_fields.min' => 'Field wajib (Nama, No HP, Email, Alamat) harus ada.',
