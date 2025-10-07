@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="/admin/dashboard">
+        <a class="nav-link" href="/panitia/dashboard">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -30,7 +30,7 @@
 
     <!-- Nav Item - Kelola Event (Langsung ke Create) -->
     <li class="nav-item">
-        <a class="nav-link" href="/admin/kelola">
+        <a class="nav-link" href="/panitia/kelola">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Kelola Event</span>
         </a>

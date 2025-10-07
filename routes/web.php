@@ -102,6 +102,7 @@ Route::prefix('panitia')->name('panitia.')->middleware('auth')->group(function (
     Route::get('/peserta', function () { return view('panitia.peserta'); })->name('peserta');
     Route::get('/absensi', function () { return view('panitia.absensi'); })->name('absensi');
     Route::get('/laporan', function () { return view('panitia.laporan'); })->name('laporan');
+    Route::get('/kelola ', function () { return view('panitia.kelola'); })->name('kelola');
 });
 
 Route::prefix('kepala')->name('kepala.')->middleware('auth')->group(function () {
