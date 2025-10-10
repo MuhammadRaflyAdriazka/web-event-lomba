@@ -5,7 +5,8 @@ use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\AdminDinasController;
 use App\Http\Controllers\PanitiaController;
 use App\Http\Controllers\KepalaDinasController;
-use App\Http\Controllers\RegistrationController; // <-- TAMBAHKAN INI
+use App\Http\Controllers\RegistrationController; // <-- TAMBAHKAN 
+use App\Http\Controllers\EventController;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Support\Facades\Route;
@@ -88,10 +89,12 @@ Route::get('/dashboard', function () {
 // ... (SEMUA BLOK ROUTE LAINNYA DI BAWAH INI TETAP SAMA, TIDAK ADA PERUBAHAN)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminDinasController::class, 'dashboard'])->name('dashboard');
-    Route::get('/kelola', [AdminDinasController::class, 'index'])->name('kelola');
-    Route::get('/create', [AdminDinasController::class, 'create'])->name('create');
-    Route::post('/store', [AdminDinasController::class, 'store'])->name('store');
-    Route::delete('/event/{id}', [AdminDinasController::class, 'destroy'])->name('event.destroy');
+
+    //crud
+    Route::get('/kelola', [EventController::class, 'index'])->name('kelola');
+    Route::get('/create', [EventController::class, 'create'])->name('create');
+    Route::post('/store', [EventController::class, 'store'])->name('store');
+    Route::delete('/event/{id}', [EventController::class, 'destroy'])->name('event.destroy');
     Route::get('/panitia', function () { return view('admin.panitia'); })->name('panitia');
     Route::get('/laporan', function () { return view('admin.laporan'); })->name('laporan');
     Route::get('/event', function () { return view('admin.event'); })->name('event');
